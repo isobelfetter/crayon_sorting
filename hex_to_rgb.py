@@ -41,7 +41,7 @@ distance_green = (rgb_dict['orange']['green']-rgb_dict['timberwolf']['green'])**
 distance_blue = (rgb_dict['orange']['blue']-rgb_dict['timberwolf']['blue'])**2
 
 distance = math.sqrt(distance_red + distance_green + distance_blue)
-#print(distance)
+print(distance)
 
 print(color_keys)
 
