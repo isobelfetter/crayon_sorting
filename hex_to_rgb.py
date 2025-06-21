@@ -12,11 +12,13 @@ import sys, math
 
 file_input = sys.argv[1]
 color_dict = {}
+color_keys = []
 with open(file_input, 'r') as read_file:
     for line in read_file:
         line = line.rstrip()
         color, hex = line.split()
         color_dict[color] = hex
+        color_keys.append(color)
 
 rgb_dict = {}
 for color in color_dict:
@@ -40,3 +42,6 @@ distance_blue = (rgb_dict['orange']['blue']-rgb_dict['timberwolf']['blue'])**2
 
 distance = math.sqrt(distance_red + distance_green + distance_blue)
 print(distance)
+
+print(color_keys)
+
