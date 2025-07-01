@@ -30,18 +30,20 @@ for color in color_dict:
     rgb_dict[color]['red'] = int(red, 16)
     rgb_dict[color]['green'] = int(green, 16)
     rgb_dict[color]['blue'] = int(blue, 16)
-    #break
 
-# distances = {}
-# for color in rgb_dict:
-#     distances[color] 
 
-distance_red = (rgb_dict['orange']['red']-rgb_dict['timberwolf']['red'])**2
-distance_green = (rgb_dict['orange']['green']-rgb_dict['timberwolf']['green'])**2
-distance_blue = (rgb_dict['orange']['blue']-rgb_dict['timberwolf']['blue'])**2
+distance_dict = {}
+for color in rgb_dict:
+    distance_dict[color] = {}
+    for partner in color_keys:
+        if partner != color:
+            distance_red = (rgb_dict[color]['red'] - rgb_dict[partner]['red'])**2
+            distance_green = (rgb_dict[color]['green']-rgb_dict[partner]['green'])**2
+            distance_blue = (rgb_dict[color]['blue'] -rgb_dict[partner]['blue'])**2
+            distance = math.sqrt(distance_red + distance_green + distance_blue)
+            distance_dict[color][partner] = distance
+    #distance_dict = sorted(distance_dict)
 
-distance = math.sqrt(distance_red + distance_green + distance_blue)
-print(distance)
 
-print(color_keys)
+
 
