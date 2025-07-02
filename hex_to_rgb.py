@@ -32,6 +32,10 @@ for color in color_dict:
     rgb_dict[color]['blue'] = int(blue, 16)
 
 
+with open('colors_rgb.txt', 'w') as write_file:
+    for color in rgb_dict:
+        write_file.write(f'{color}\t{rgb_dict[color]['red']}\t{rgb_dict[color]['green']}\t{rgb_dict[color]['blue']}\n')
+
 distance_dict = {}
 for color in rgb_dict:
     distance_dict[color] = {}
