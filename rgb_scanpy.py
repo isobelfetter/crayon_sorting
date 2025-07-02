@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-import scanpy as sc
-import anndata as ad
+import scanpy as sc # type: ignore
+import anndata as ad # type: ignore
 
 sc.settings.set_figure_params(dpi=250, facecolor="white")
 
