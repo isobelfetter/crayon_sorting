@@ -1,22 +1,50 @@
 #!/usr/bin/env python3
 
+import random, string
 import numpy as np
 
-colors = np.loadtxt('colors_rgb.txt', delimiter='\t', usecols=(1,2,3))
+colours = [[111,  28,  21],
+       [ 27,  17,  20],
+       [ 79,  23,  17],
+       [185, 125,  50],
+       [155,  76,  32],
+       [ 82,  24,  17],
+       [127,  63,  33],
+       [193,  91,  63],
+       [176,  97,  36],
+       [ 79,  15,  19],
+       [176, 140,  47],
+       [203,  65,  46],
+       [174, 139,  87],
+       [138,  44,  34],
+       [144,  91,  36],
+       [ 86,  21,  16],
+       [123,  44,  32],
+       [109,  44,  30],
+       [ 84,  29,  27],
+       [121,  42,  65],
+       [ 70,  15,  11],
+       [107,  24,  17]]
 
-color_names = np.loadtxt('colors_rgb.txt', dtype='str', delimiter='\t', usecols=0)
+colours_np = np.array(colours)/255.0
 
-colors_norm = colors/255
+color_dict = {}
+for color in colours:
+    color_name = ''
+    for i in range(6):
+        color_name += (random.choice(string.ascii_letters))
+    color_dict[color_name] = color
 
-colors_dict = {}
-rev_dict = {}
-with open('colors_rgb.txt', 'r') as read_file:
-    for line in read_file:
-        line = line.rstrip()
-        color, red, green, blue = line.split()
-        rgb = (int(red)/255, int(green)/255, int(blue)/255)
-        colors_dict[color] = rgb
-        rev_dict[rgb] = color
+
+for color in color_dict:
+    red = color_dict[color][0]
+    green = color_dict[color][1]
+    blue = color_dict[color][2]
+    red /= 255
+    green /= 255
+    blue /= 255
+    color_dict[color] = (red, green, blue)
+
 
 import math
 
@@ -80,15 +108,17 @@ def plot_colortable(colors, *, ncols=4, sort_colors=False):
 
 pca = PCA(n_components=1)
 
-one_d_colors = pca.fit_transform(colors_norm)[:,0]
+one_d_colors = pca.fit_transform(colours_np)[:,0]
 ix = np.argsort(one_d_colors)
 
-sorted_colors = colors_norm[ix]
+sorted_colors = colours_np[ix]
 
 sorted_dict = {}
 for row in sorted_colors:
-    name = rev_dict[tuple(row.tolist())]
-    sorted_dict[name] = tuple(row.tolist())
+    color_name = ''
+    for i in range(6):
+        color_name += (random.choice(string.ascii_letters))
+    sorted_dict[color_name] = tuple(row.tolist())
 
 
 plot_colortable(sorted_dict)
