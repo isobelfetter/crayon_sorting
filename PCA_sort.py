@@ -93,4 +93,4 @@ for row in sorted_colors:
 
 plot_colortable(sorted_dict)
 
-plt.show()
+plt.show() #figure out using NN algo but this plotter
