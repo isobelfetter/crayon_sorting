@@ -11,14 +11,18 @@ color_names = np.loadtxt('colors_rgb.txt', dtype='str', delimiter='\t', usecols=
 colors_norm = colors/255
 
 colors_dict = {}
+colors_list = []
 rev_dict = {}
 with open('colors_rgb.txt', 'r') as read_file:
     for line in read_file:
         line = line.rstrip()
         color, red, green, blue = line.split()
+        colors_list.append([int(red)/255, int(green)/255, int(blue)/255])
         rgb = (int(red)/255, int(green)/255, int(blue)/255)
         colors_dict[color] = rgb
         rev_dict[rgb] = color
+
+colors_length = len(colors_list)
 
 import math
 
@@ -26,8 +30,49 @@ import matplotlib.pyplot as plt
 
 import matplotlib.colors as mcolors
 from matplotlib.patches import Rectangle
-from sklearn.decomposition import PCA
 
+def NN(A, start):
+    """Nearest neighbor algorithm.
+    A is an NxN array indicating distance between N locations
+    start is the index of the starting location
+    Returns the path and cost of the found solution
+    """
+    path = [start]
+    cost = 0
+    N = A.shape[0]
+    mask = np.ones(N, dtype=bool)  # boolean values indicating which 
+                                   # locations have not been visited
+    mask[start] = False
+
+    for i in range(N-1):
+        last = path[-1]
+        next_ind = np.argmin(A[last][mask]) # find minimum of remaining locations
+        next_loc = np.arange(N)[mask][next_ind] # convert to original location
+        path.append(next_loc)
+        mask[next_loc] = False
+        cost += A[last, next_loc]
+
+    return path, cost
+
+from scipy.spatial import distance
+# Distance matrix
+A = np.zeros([colors_length,colors_length]) #numpy array 120x120
+for x in range(0, colors_length):
+    for y in range(0, colors_length):
+        A[x,y] = distance.euclidean(colors_list[x],colors_list[y])
+
+# Nearest neighbour algorithm
+path, _ = NN(A, 0)
+
+# Final array
+colors_nn = []
+for i in path:
+    colors_nn.append(    colors_list[i]    )
+
+sorted_dict = {}
+for row in colors_nn:
+    name = rev_dict[tuple(row)]
+    sorted_dict[name] = tuple(row)
 
 
 def plot_colortable(colors, *, ncols=4, sort_colors=False):
@@ -78,19 +123,6 @@ def plot_colortable(colors, *, ncols=4, sort_colors=False):
         )
 
     return fig
-
-
-pca = PCA(n_components=1)
-
-one_d_colors = pca.fit_transform(colors_norm)[:,0]
-ix = np.argsort(one_d_colors)
-
-sorted_colors = colors_norm[ix]
-
-sorted_dict = {}
-for row in sorted_colors:
-    name = rev_dict[tuple(row.tolist())]
-    sorted_dict[name] = tuple(row.tolist())
 
 
 plot_colortable(sorted_dict)

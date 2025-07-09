@@ -14,16 +14,15 @@ import numpy as np
 #         ]
 #     )
 
-file_input = sys.argv[1]
 colours = []
-with open(file_input, 'r') as read_file:
+with open('colors_rgb.txt', 'r') as read_file:
     for line in read_file:
         line = line.rstrip()
         color, red, green, blue = line.split()
         colours.append([int(red), int(green), int(blue)])
 
 
-print(colours)
+#print(colours)
 
 colours_length = len(colours)
 
@@ -65,7 +64,7 @@ def NN(A, start):
 
 from scipy.spatial import distance
 # Distance matrix
-A = np.zeros([colours_length,colours_length])
+A = np.zeros([colours_length,colours_length]) #numpy array 120x120
 for x in range(0, colours_length):
     for y in range(0, colours_length):
         A[x,y] = distance.euclidean(colours[x],colours[y])

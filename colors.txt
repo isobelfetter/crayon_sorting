@@ -1,3 +1,4 @@
+black   000000
 almond	EED9C4
 antique_brass	C88A65
 apricot	FDD5B1
@@ -7,7 +8,6 @@ atomic_tangerine	FF9966
 banana_mania	FBE7B2
 beaver	926F5B
 bittersweet	FE6F5E
-black	000000
 blue	0066FF
 blue_green	0095B7
 blue_violet	6456B7

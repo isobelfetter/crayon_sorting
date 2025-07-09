@@ -1,3 +1,4 @@
+black	0	0	0
 almond	238	217	196
 antique_brass	200	138	101
 apricot	253	213	177
@@ -7,7 +8,6 @@ atomic_tangerine	255	153	102
 banana_mania	251	231	178
 beaver	146	111	91
 bittersweet	254	111	94
-black	0	0	0
 blue	0	102	255
 blue_green	0	149	183
 blue_violet	100	86	183
