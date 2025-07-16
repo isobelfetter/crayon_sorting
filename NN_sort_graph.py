@@ -1,19 +1,22 @@
 #!/usr/bin/env python3
 
 import numpy as np
+import sys
+
+input_file = sys.argv[1]
 
 
 #numpy array 120x3
-colors = np.loadtxt('colors_rgb.txt', delimiter='\t', usecols=(1,2,3))
+colors = np.loadtxt(input_file, delimiter='\t', usecols=(1,2,3))
 
-color_names = np.loadtxt('colors_rgb.txt', dtype='str', delimiter='\t', usecols=0)
+color_names = np.loadtxt(input_file, dtype='str', delimiter='\t', usecols=0)
 
 colors_norm = colors/255
 
 colors_dict = {}
 colors_list = []
 rev_dict = {}
-with open('colors_rgb.txt', 'r') as read_file:
+with open(input_file, 'r') as read_file:
     for line in read_file:
         line = line.rstrip()
         color, red, green, blue = line.split()
